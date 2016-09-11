@@ -23,6 +23,11 @@ export default class ContentEditable extends React.Component {
   }
 
   shouldComponentUpdate(nextProps) {
+    let shouldStyleUpdate = false;
+    if (nextProps.style) {
+      shouldStyleUpdate = (JSON.stringify(this.props.style) !== JSON.stringify(nextProps.style));
+    }
+
     // We need not rerender if the change of props simply reflects the user's
     // edits. Rerendering in this case would make the cursor/caret jump.
     return (
@@ -33,8 +38,8 @@ export default class ContentEditable extends React.Component {
         && nextProps.html !== this.props.html )
       // ...or if editing is enabled or disabled.
       || this.props.disabled !== nextProps.disabled
-      // ...or if the styles have changed.
-      || this.props.style !== nextProps.style
+      // ...or the styling requires an update.
+      || shouldStyleUpdate
     );
   }
 
