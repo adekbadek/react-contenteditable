@@ -23,10 +23,7 @@ export default class ContentEditable extends React.Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    let propsChanged = false;
-    if (nextProps.style) {
-      propsChanged = (JSON.stringify(this.props) !== JSON.stringify(nextProps));
-    }
+    const propsChanged = (JSON.stringify(this.props) !== JSON.stringify(nextProps));
 
     // We need not rerender if the change of props simply reflects the user's
     // edits. Rerendering in this case would make the cursor/caret jump.
